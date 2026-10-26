@@ -1,0 +1,229 @@
+# /config/packages/taken.yaml – Takenlijst voor kinderen (achterkant)
+# Script en gegevens staan in /config/taken/. Namen en taken: /config/taken/taken.json.
+# Na het plaatsen: Home Assistant volledig herstarten (shell_command en command_line).
+
+input_boolean:
+  schoolvakantie:
+    name: Schoolvakantie
+    icon: mdi:beach
+
+shell_command:
+  # Eén opdracht voor alle acties; de scripts hieronder vullen de velden.
+  taken: >-
+    python3 /config/taken/taken.py {{ actie | default('status') }}
+    {%- if taak | default('') %} --taak {{ taak | to_json }}{% endif %}
+    {%- if persoon | default('') %} --persoon {{ persoon | to_json }}{% endif %}
+    {%- if voor | default('') %} --voor {{ voor | to_json }}{% endif %}
+    {%- if id | default('') %} --id {{ id | int }}{% endif %}
+    {%- if naam | default('') %} --naam {{ naam | to_json }}{% endif %}
+    {%- if beloning is defined %} --beloning {{ beloning | string | to_json }}{% endif %}
+    {%- if sterren is defined %} --sterren {{ sterren | int(0) }}{% endif %}
+    {%- if vakantie | default('') %} --vakantie {{ vakantie | to_json }}{% endif %}
+
+command_line:
+  - sensor:
+      name: Taken status
+      unique_id: taken_status
+      command: "cat /config/taken/status.json"
+      value_template: "{{ value_json.bijgewerkt }}"
+      json_attributes:
+        - schooldag
+        - vakantie
+        - kinderen
+        - taken_dag
+        - taken_week
+        - taken_ouder
+        - bonus
+        - bonus_suggesties
+        - bonus_max
+        - per_kind
+        - maanddoel
+        - doelen_historie
+        - album
+        - envelop_per
+        - laatste_envelop
+        - samen
+      scan_interval: 60
+
+script:
+  taken_afvinken:
+    alias: Taak afvinken
+    description: "Taak afvinken. persoon: naam van een kind, Samen of Ouder. voor: alleen nodig als een ouder een eigen taak van een kind afvinkt."
+    mode: queued
+    fields:
+      taak: {description: "id uit taken.json, bijvoorbeeld tafel_dekken", example: tafel_dekken}
+      persoon: {description: "Wie deed het", example: Sam}
+      voor: {description: "Voor welk kind (eigen taken)", example: Fenna}
+    sequence:
+      - action: shell_command.taken
+        data:
+          actie: afvinken
+          taak: "{{ taak }}"
+          persoon: "{{ persoon | default('Ouder') }}"
+          voor: "{{ voor | default('') }}"
+      - action: homeassistant.update_entity
+        target: {entity_id: sensor.taken_status}
+
+  taken_ongedaan:
+    alias: Taak terugzetten
+    description: "Zet een afvinking of bonustaak terug (log_id uit de sensor)."
+    mode: queued
+    fields:
+      id: {description: "log_id", example: 12}
+    sequence:
+      - action: shell_command.taken
+        data:
+          actie: ongedaan
+          id: "{{ id }}"
+      - action: homeassistant.update_entity
+        target: {entity_id: sensor.taken_status}
+
+  taken_bonus:
+    alias: Bonustaak toevoegen
+    description: "Bonustaak met naam. Maximaal 2 bonussterren per kind per dag; daarna telt hij zonder ster."
+    mode: queued
+    fields:
+      naam: {description: "Wat is er gedaan", example: Aanrecht schoonmaken}
+      persoon: {description: "Naam van een kind, Samen of Ouder", example: Fenna}
+    sequence:
+      - action: shell_command.taken
+        data:
+          actie: bonus
+          naam: "{{ naam }}"
+          persoon: "{{ persoon }}"
+      - action: homeassistant.update_entity
+        target: {entity_id: sensor.taken_status}
+
+  taken_envelop:
+    alias: Envelopje openen
+    description: "Opent een envelopje voor een kind; de nieuwe sticker staat daarna in laatste_envelop."
+    mode: queued
+    fields:
+      persoon: {description: "Naam van het kind", example: Sam}
+    sequence:
+      - action: shell_command.taken
+        data:
+          actie: envelop
+          persoon: "{{ persoon }}"
+      - action: homeassistant.update_entity
+        target: {entity_id: sensor.taken_status}
+
+  taken_samen_envelop:
+    alias: Samen-envelopje openen
+    description: "Opent een samen-envelopje (na elke samen_dagen dagen dat alle kinderen alles af hadden); iedereen krijgt dezelfde samen-sticker."
+    mode: queued
+    fields:
+      persoon: {description: "Naam van het kind", example: Fenna}
+    sequence:
+      - action: shell_command.taken
+        data:
+          actie: samen_envelop
+          persoon: "{{ persoon }}"
+      - action: homeassistant.update_entity
+        target: {entity_id: sensor.taken_status}
+
+  taken_doel:
+    alias: Maanddoel instellen
+    description: "Beloning en aantal sterren voor deze maand (samen)."
+    mode: queued
+    fields:
+      beloning: {description: "Beloning", example: Samen pannenkoeken bakken}
+      sterren: {description: "Aantal sterren samen", example: 40}
+    sequence:
+      - action: shell_command.taken
+        data:
+          actie: doel
+          beloning: "{{ beloning | default('') }}"
+          sterren: "{{ sterren | default(40) }}"
+      - action: homeassistant.update_entity
+        target: {entity_id: sensor.taken_status}
+
+  taken_aanvraag:
+    alias: Taak aanvragen
+    description: "Zet een taak met ritme op_aanvraag (bijvoorbeeld vaatwasser) op de lijst."
+    mode: queued
+    fields:
+      taak: {description: "id", example: vaatwasser}
+    sequence:
+      - action: shell_command.taken
+        data:
+          actie: aanvraag
+          taak: "{{ taak }}"
+      - action: homeassistant.update_entity
+        target: {entity_id: sensor.taken_status}
+
+  taken_ververs:
+    alias: Takenlijst verversen
+    mode: single
+    sequence:
+      - action: shell_command.taken
+        data:
+          actie: status
+          vakantie: "{{ states('input_boolean.schoolvakantie') }}"
+      - action: homeassistant.update_entity
+        target: {entity_id: sensor.taken_status}
+
+automation:
+  - id: taken_ververs
+    alias: Takenlijst verversen
+    description: "Elke 5 minuten de lijst opnieuw berekenen (vensters zoals 'vanaf 16:30', nieuwe dag)."
+    mode: single
+    triggers:
+      - trigger: time_pattern
+        minutes: /5
+      - trigger: homeassistant
+        event: start
+      - trigger: state
+        entity_id: input_boolean.schoolvakantie
+    actions:
+      - action: script.taken_ververs
+
+  # Schoolvrije dagen uit je agenda (optioneel). Pas 'agenda' aan naar je eigen kalender;
+  # bestaat die niet, dan doet deze automatisering niets. Handmatig kan ook: input_boolean.schoolvakantie.
+  - id: taken_schoolvakantie
+    alias: Takenlijst schoolvrije dag uit de agenda
+    description: "Staat er vandaag een afspraak met 'vakantie', 'studiedag', 'vrije dag' of 'kinderen vrij' in de naam, dan is het geen schooldag."
+    mode: single
+    variables:
+      agenda: calendar.gezin
+    triggers:
+      - trigger: time
+        at: "00:01:00"
+      - trigger: homeassistant
+        event: start
+    conditions:
+      - condition: template
+        value_template: "{{ states(agenda) not in ['unknown', 'unavailable'] }}"
+    actions:
+      - action: calendar.get_events
+        target: {entity_id: "{{ agenda }}"}
+        data:
+          start_date_time: "{{ today_at('00:00') }}"
+          end_date_time: "{{ today_at('23:59') }}"
+        response_variable: lijst
+      - variables:
+          vakantie: >-
+            {% set t = lijst[agenda].events | map(attribute='summary') | join(' | ') | lower %}
+            {{ 'vakantie' in t or 'studiedag' in t or 'vrije dag' in t or 'kinderen vrij' in t }}
+      - action: "input_boolean.turn_{{ 'on' if vakantie else 'off' }}"
+        target: {entity_id: input_boolean.schoolvakantie}
+
+  # Vaatwasser klaar → 'Vaatwasser uitpakken' op de lijst (optioneel). Pas 'vaatwasser' en de
+  # klaar-status aan naar je eigen apparaat; bestaat de entiteit niet, dan gebeurt er niets.
+  - id: taken_vaatwasser
+    alias: Takenlijst vaatwasser uitpakken
+    mode: single
+    variables:
+      klaar: ['finished', 'finish', 'klaar', 'end']
+    triggers:
+      - trigger: state
+        entity_id: sensor.vaatwasser_status
+    conditions:
+      - condition: template
+        value_template: "{{ trigger.to_state.state | lower in klaar }}"
+      - condition: template
+        value_template: "{{ trigger.from_state is not none and trigger.from_state.state | lower not in klaar + ['unavailable', 'unknown'] }}"
+    actions:
+      - action: script.taken_aanvraag
+        data:
+          taak: vaatwasser

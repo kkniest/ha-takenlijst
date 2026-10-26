@@ -1,0 +1,226 @@
+{
+ "album": "herfstpup",
+ "titel": "Herfstpup",
+ "van": "2026-09-01",
+ "tot": "2027-02-28",
+ "pad": "/local/stickers/herfstpup/",
+ "stickers": [
+  {
+   "id": "touwbal",
+   "naam": "Touwbal",
+   "soort": "gewoon",
+   "nr": 1,
+   "pagina": 1
+  },
+  {
+   "id": "tak",
+   "naam": "Een mooie tak",
+   "soort": "gewoon",
+   "nr": 2,
+   "pagina": 1
+  },
+  {
+   "id": "wortel",
+   "naam": "Wortel!",
+   "soort": "gewoon",
+   "nr": 3,
+   "pagina": 1
+  },
+  {
+   "id": "kip",
+   "naam": "Piepkip",
+   "soort": "gewoon",
+   "nr": 4,
+   "pagina": 1
+  },
+  {
+   "id": "eikels",
+   "naam": "Eikels zoeken",
+   "soort": "gewoon",
+   "nr": 5,
+   "pagina": 1
+  },
+  {
+   "id": "kastanjes",
+   "naam": "Blaadje op mijn kop",
+   "soort": "gewoon",
+   "nr": 6,
+   "pagina": 1
+  },
+  {
+   "id": "sjaal",
+   "naam": "Herfstsjaal",
+   "soort": "gewoon",
+   "nr": 7,
+   "pagina": 2
+  },
+  {
+   "id": "paraplu",
+   "naam": "Regenweer",
+   "soort": "gewoon",
+   "nr": 8,
+   "pagina": 2
+  },
+  {
+   "id": "pompoen",
+   "naam": "Pompoen",
+   "soort": "gewoon",
+   "nr": 9,
+   "pagina": 2
+  },
+  {
+   "id": "paddenstoel",
+   "naam": "Paddenstoel snuffelen",
+   "soort": "gewoon",
+   "nr": 10,
+   "pagina": 2
+  },
+  {
+   "id": "nieuwsgierig",
+   "naam": "Nieuwsgierig",
+   "soort": "gewoon",
+   "nr": 11,
+   "pagina": 2
+  },
+  {
+   "id": "blij",
+   "naam": "Blije pup",
+   "soort": "gewoon",
+   "nr": 12,
+   "pagina": 2
+  },
+  {
+   "id": "modder",
+   "naam": "Modderpootjes",
+   "soort": "gewoon",
+   "nr": 13,
+   "pagina": 3
+  },
+  {
+   "id": "lampion",
+   "naam": "Sint-Maarten",
+   "soort": "zeldzaam",
+   "nr": 14,
+   "pagina": 3
+  },
+  {
+   "id": "kussen",
+   "naam": "Slaapkop",
+   "soort": "gewoon",
+   "nr": 15,
+   "pagina": 3
+  },
+  {
+   "id": "knuffel",
+   "naam": "Met zeehondknuffel",
+   "soort": "zeldzaam",
+   "nr": 16,
+   "pagina": 3
+  },
+  {
+   "id": "stoel",
+   "naam": "Verstoppertje",
+   "soort": "gewoon",
+   "nr": 17,
+   "pagina": 3
+  },
+  {
+   "id": "likmat",
+   "naam": "Likmat",
+   "soort": "gewoon",
+   "nr": 18,
+   "pagina": 3
+  },
+  {
+   "id": "waterbak",
+   "naam": "Even uitrusten",
+   "soort": "gewoon",
+   "nr": 19,
+   "pagina": 4
+  },
+  {
+   "id": "bladerhoop",
+   "naam": "Bladerhoop",
+   "soort": "gewoon",
+   "nr": 20,
+   "pagina": 4
+  },
+  {
+   "id": "goud",
+   "naam": "Gouden herfstpup",
+   "soort": "goud",
+   "nr": 21,
+   "pagina": 4
+  },
+  {
+   "id": "plas",
+   "naam": "Plassen springen",
+   "soort": "gewoon",
+   "nr": 22,
+   "pagina": 4
+  },
+  {
+   "id": "egel",
+   "naam": "Hallo egel!",
+   "soort": "zeldzaam",
+   "nr": 23,
+   "pagina": 4
+  },
+  {
+   "id": "kastanje_neus",
+   "naam": "Kastanje op mijn neus",
+   "soort": "zeldzaam",
+   "nr": 24,
+   "pagina": 4
+  },
+  {
+   "id": "laarzen",
+   "naam": "Laarzen aan",
+   "soort": "gewoon",
+   "nr": 25,
+   "pagina": 5
+  },
+  {
+   "id": "blaadjes",
+   "naam": "Blaadjes vangen",
+   "soort": "gewoon",
+   "nr": 26,
+   "pagina": 5
+  },
+  {
+   "id": "kachel",
+   "naam": "Lekker warm",
+   "soort": "gewoon",
+   "nr": 27,
+   "pagina": 5
+  },
+  {
+   "id": "appel",
+   "naam": "Appel gevonden",
+   "soort": "gewoon",
+   "nr": 28,
+   "pagina": 5
+  },
+  {
+   "id": "heksenhoed",
+   "naam": "Halloween",
+   "soort": "zeldzaam",
+   "nr": 29,
+   "pagina": 5
+  },
+  {
+   "id": "tennisbal",
+   "naam": "Tennisbal",
+   "soort": "gewoon",
+   "nr": 30,
+   "pagina": 5
+  },
+  {
+   "id": "eekhoorn",
+   "naam": "Eekhoorn gezien!",
+   "soort": "zeldzaam",
+   "nr": 31,
+   "pagina": 6
+  }
+ ]
+}
