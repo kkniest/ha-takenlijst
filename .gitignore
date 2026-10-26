@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+taken/log.json
+taken/status.json
+taken/doel.json
+taken/context.json
+taken/.taken.lock
+*.tmp

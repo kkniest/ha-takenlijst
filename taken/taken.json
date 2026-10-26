@@ -1,0 +1,122 @@
+{
+ "versie": 1,
+ "uitleg": "Pas 'personen' en 'taken' aan. soort: eigen = per kind; huis = wie het doet (kinderklus: true geeft een ster); ouder = zonder ster. ritme: dag, schooldag, week, elke_N_dagen, 2_weken_weekend, op_aanvraag. telt_mee = telt mee voor 'alles af vandaag'. optioneel = staat onder 'Als het zo uitkomt'. vanaf/tot = alleen zichtbaar tussen die tijden.",
+ "personen": [
+  "Sam",
+  "Fenna"
+ ],
+ "taken": [
+  {
+   "id": "schoenen",
+   "naam": "Schoenen in de schoenenkast",
+   "soort": "eigen",
+   "ritme": "dag",
+   "telt_mee": true
+  },
+  {
+   "id": "kleren",
+   "naam": "Kleren in de wasmand",
+   "soort": "eigen",
+   "ritme": "dag",
+   "telt_mee": true
+  },
+  {
+   "id": "bekers",
+   "naam": "Bekers en bakjes naar de vaatwasser",
+   "soort": "eigen",
+   "ritme": "dag",
+   "telt_mee": true
+  },
+  {
+   "id": "schooltas",
+   "naam": "Schooltas uitpakken en opruimen",
+   "soort": "eigen",
+   "ritme": "schooldag",
+   "telt_mee": true
+  },
+  {
+   "id": "douche",
+   "naam": "Douche opruimen",
+   "soort": "eigen",
+   "ritme": "dag",
+   "telt_mee": false,
+   "optioneel": true,
+   "toelichting": "als je hebt gedoucht"
+  },
+  {
+   "id": "bureau",
+   "naam": "Bureau opruimen",
+   "soort": "eigen",
+   "ritme": "week",
+   "telt_mee": true
+  },
+  {
+   "id": "bed_opmaken",
+   "naam": "Bed opmaken en knuffels erin",
+   "soort": "eigen",
+   "ritme": "week",
+   "telt_mee": true
+  },
+  {
+   "id": "ontbijttafel",
+   "naam": "Ontbijttafel afruimen",
+   "soort": "huis",
+   "ritme": "dag",
+   "tot": "12:00",
+   "kinderklus": true
+  },
+  {
+   "id": "tafel_dekken",
+   "naam": "Tafel dekken",
+   "soort": "huis",
+   "ritme": "dag",
+   "vanaf": "16:30",
+   "kinderklus": true
+  },
+  {
+   "id": "bank_netjes",
+   "naam": "Bank netjes maken",
+   "soort": "huis",
+   "ritme": "dag",
+   "kinderklus": true
+  },
+  {
+   "id": "planten",
+   "naam": "Planten water geven",
+   "soort": "huis",
+   "ritme": "week",
+   "kinderklus": true
+  },
+  {
+   "id": "vaatwasser",
+   "naam": "Vaatwasser uitpakken",
+   "soort": "huis",
+   "ritme": "op_aanvraag",
+   "kinderklus": true
+  },
+  {
+   "id": "dweilen",
+   "naam": "Dweilen beneden",
+   "soort": "ouder",
+   "ritme": "elke_3_dagen"
+  },
+  {
+   "id": "bedden_verschonen",
+   "naam": "Bedden verschonen",
+   "soort": "ouder",
+   "ritme": "week"
+  }
+ ],
+ "bonus_suggesties": [
+  "Aanrecht schoonmaken",
+  "Eettafel schoonmaken",
+  "Iemand helpen"
+ ],
+ "bonus_max_sterren_per_dag": 2,
+ "envelop_per_sterren": 6,
+ "samen_dagen": 5,
+ "maanddoel": {
+  "beloning": "",
+  "sterren": 40
+ }
+}
